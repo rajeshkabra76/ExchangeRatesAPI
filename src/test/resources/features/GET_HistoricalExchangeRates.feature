@@ -1,24 +1,19 @@
-#@HistoricalExchange
-#Feature: Historical Exchange Rates API
-  #I want to validate the historical exchange rates API for various test conditions
-#
-  #@tag1
-  #Scenario: Title of your scenario
-    #Given I want to write a step with precondition
-    #And some other precondition
-    #When I complete action
-    #And some other action
-    #And yet another action
-    #Then I validate the outcomes
-    #And check more outcomes
-#
-  #@tag2
-  #Scenario Outline: Title of your scenario outline
-    #Given I want to write a step with <name>
-    #When I check for the <value> in step
-    #Then I verify the <status> in step
-#
-    #Examples: 
-      #| name  | value | status  |
-      #| name1 |     5 | success |
-      #| name2 |     7 | Fail    |
+@HistoricalExchange
+Feature: Latest Exchange Rates API
+  I want to validate the latest exchange rates API for various test conditions
+
+  
+  Scenario: Validate response for Latest exchange rate with Valid data 
+  	When I perform GET operation with Base, Symbols and Date
+  	| base  | symbol 	 | date 			|
+    | EUR	  |   GBP  	 | 2020-05-12	|
+    Then I should get response code as 200
+    And validate the following response
+    | base | rates | date 			|
+    | EUR	 | GBP	 | 2020-05-12	|
+    And validate the Content Type as "application/json"
+    
+  Scenario: Validate response for invaild request
+  
+  When I make an invalid request with invalid date
+  Then I should get response code as 400
