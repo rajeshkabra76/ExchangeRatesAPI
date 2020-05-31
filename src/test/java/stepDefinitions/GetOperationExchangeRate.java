@@ -28,8 +28,10 @@ public class GetOperationExchangeRate {
 	
 	@When("^I perform GET operation with Base and Symbols$")
 	public void i_perform_GET_operation_with_valid_Base_and_Symbols(DataTable table) throws Throwable {
+		//Table data passed from the feature steps
 		List<List<String>> data = table.raw();
-
+		
+		//Getting the base URL for end-point 
 		RestAssured.baseURI = fileReaderManager.getConfigReader().getBaseUrl();
 		request = RestAssured.given();
 		response = request.queryParam("base", data.get(1).get(0)).queryParam("symbols", data.get(1).get(1)).get("/latest");
@@ -39,6 +41,7 @@ public class GetOperationExchangeRate {
 	public void i_should_get(int statusCode) throws Throwable {
 	    
 		json = response.then().statusCode(statusCode);
+		//Assertion for response code
 		assertEquals(response.getStatusCode(), statusCode);
 		
 	}
@@ -49,6 +52,8 @@ public class GetOperationExchangeRate {
 		List<List<String>> data = table.raw();
 
 		String responseBody = response.body().asString();
+		
+		//Assertion for response data 
 		assertEquals(responseBody.contains(data.get(1).get(0)), true);
 		assertEquals(responseBody.contains(data.get(1).get(1)), true);
 
@@ -57,6 +62,7 @@ public class GetOperationExchangeRate {
 	
 	@Then("^validate the Content Type as \"([^\"]*)\"$")
 	public void validate_the_Content_Type_as(String contentType) throws Throwable {
+		//Assertion for Content type
 	    assertEquals(response.contentType().contains(contentType), true);
 	}
 	
@@ -65,6 +71,7 @@ public class GetOperationExchangeRate {
 	public void make_invalid_request() throws Throwable {
 		RestAssured.baseURI = fileReaderManager.getConfigReader().getBaseUrl();
 		request = RestAssured.given();
+		//Making Invalid request
 		response = request.get("/invalid");
 	}
 	
@@ -78,6 +85,7 @@ public class GetOperationExchangeRate {
         
 		RestAssured.baseURI = fileReaderManager.getConfigReader().getBaseUrl();
 		request = RestAssured.given();
+		// Making GET request with the passed data from the feature file
 		response = request.queryParam("base", data.get(1).get(0)).queryParam("symbols", data.get(1).get(1)).get("/"+ data.get(1).get(2));
 	}
 
@@ -86,6 +94,8 @@ public class GetOperationExchangeRate {
 		
 		RestAssured.baseURI = fileReaderManager.getConfigReader().getBaseUrl();
 		request = RestAssured.given();
+		
+		//Making Invalid request with invalid date format
 		response = request.get("/01-15-2020");//Invalid date format
 	}
 

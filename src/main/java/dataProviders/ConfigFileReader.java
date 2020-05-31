@@ -12,6 +12,8 @@ public class ConfigFileReader {
 	private final String propertyFilePath= "configurations//config.properties";
 
 	
+	//ConfigfileReader is created to read the data from the configurations file
+	 
 	public ConfigFileReader(){
 		BufferedReader reader;
 		try {
@@ -30,21 +32,12 @@ public class ConfigFileReader {
 	}
 	
 	public String getBaseUrl() {
+		
+		// This will return the base URL from config file
+		
 		String url = properties.getProperty("BASE_URL");
 		if(url != null) return url;
-		else throw new RuntimeException("BASE_URL not specified in the Configuration.properties file.");
-	}
-	
-	public String getStatusCodeOK(){
-		String statusCodeOK = properties.getProperty("GET_STATUS_OK");
-		if(statusCodeOK!= null) return statusCodeOK;
-		else throw new RuntimeException("statusCodeOK not specified in the Configuration.properties file");		
-	}
-	
-	public String getStatusCodeBadRequest(){
-		String statusCodeBadRequest = properties.getProperty("GET_BAD_REQUEST");
-		if(statusCodeBadRequest!= null) return statusCodeBadRequest;
-		else throw new RuntimeException("GET_BAD_REQUEST not specified in the Configuration.properties file");		
+		else throw new RuntimeException("BASE_URL not specified in the Config.properties file.");
 	}
 
 }

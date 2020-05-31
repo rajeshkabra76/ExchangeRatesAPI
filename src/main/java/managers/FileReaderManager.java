@@ -3,7 +3,9 @@ package managers;
 import dataProviders.ConfigFileReader;
 
 public class FileReaderManager {
-
+	
+	// This class is used to return the object for the data provider classes
+	
 	private static FileReaderManager fileReaderManager = new FileReaderManager();
 	private static ConfigFileReader configFileReader;
 
